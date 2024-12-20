@@ -1,4 +1,4 @@
-# Ai Configs Demo/Example Application
+# Ai Configs Example Application
 
 This application returns a list of products that match a user's preferences. It includes implementation with AI Configs against OpenAI.
 
