@@ -19,4 +19,4 @@ Endpoint is on `/` and will return a list of products that match the user's pref
 
 ### Monitoring
 
-This example is built with openAI and as such uses the built-in `trackOpenAiMetrics()` method to track the completion. Thumbs up/down can be sent randomly to generate feedback.
+This example is built with openAI and as such uses the built-in `trackOpenAiMetrics()` method to track the completion.
