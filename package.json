@@ -1,0 +1,21 @@
+{
+  "name": "weatherman-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "run-once": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@hapi/hapi": "21.3.12",
+    "@launchdarkly/node-server-sdk": "9.7.2",
+    "@launchdarkly/server-sdk-ai": "0.6.0",
+    "dotenv": "16.4.7",
+    "nodemon": "3.1.7",
+    "openai": "4.76.1",
+    "ts-node": "10.9.2",
+    "typescript": "5.7.2",
+    "uuid": "11.0.3"
+  }
+}
