@@ -1,6 +1,5 @@
 import { LDContext } from "@launchdarkly/node-server-sdk";
 import { getLaunchDarklyClients } from "../config/launchdarkly";
-import { v4 as uuidv4 } from "uuid";
 import { getOpenAI } from "../config/openAI";
 import { formatProductForCompletion, getProducts } from "../data/products";
 
@@ -12,7 +11,9 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
   const { aiClient } = await getLaunchDarklyClients();
   // Create the user context for this request
   const ctx: LDContext = {
-    key: uuidv4(),
+    // The context key should be unique to this end user
+    // You can use any generated value
+    key: "example-user-key",
     kind: "user",
     name: userName,
   };
