@@ -33,9 +33,12 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
         productsAvailable: productsAvailable.map(product => formatProductForCompletion(product)),
     }
   );
-  // If our AI Config is disabled, throw an error to be handled appropriately by the application
+  // If the AI Config is disabled, make sure to handle that appropriately
   if (!aiConfig.enabled) {
-    throw new Error("AI configuration is disabled");
+    // Application path to take when the aiConfig is disabled
+    // For example, you could show a message that the shopping assistant
+    // is not available and customers should try again later
+    console.log("AI Config is disabled");
   }
 
 
