@@ -6,7 +6,7 @@ import { completeShoppingAssistant } from "./completions/shoppingAssistant";
 async function main() {
   const server = Hapi.server({
     port: 3008,
-    host: "localhost",
+    host: "0.0.0.0", // Changed from localhost to 0.0.0.0 for Render
   });
 
   server.route({
@@ -16,9 +16,9 @@ async function main() {
       try {
         return await completeShoppingAssistant("Sandy", "I'm looking for a smart watch", ["athletic", "casual", "running"])
       } catch (err) {
-        console.log(err)
+        console.error('Error in handler:', err);
+        return h.response({ error: 'Internal server error', details: err.message }).code(500);
       }
-
     },
   });
 

@@ -41,25 +41,30 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
     }
   );
   // If the AI Config is disabled, make sure to handle that appropriately
-  if (!aiConfig.enabled) {
-    // Application path to take when the aiConfig is disabled
-    // For example, you could show a message that the shopping assistant
-    // is not available and customers should try again later
-    console.log("AI Config is disabled");
+  if (!aiConfig.enabled || !aiConfig.model || !aiConfig.messages) {
+    console.log("AI Config is disabled or not configured. Returning fallback response.");
+    return `<pre>Welcome to the Shopping Assistant! 
+
+I can help you find products based on your preferences: ${userPreferences.join(', ')}.
+
+Note: The AI Config is not currently enabled in LaunchDarkly. 
+Please enable the "chat-helper-v1" AI Config in your LaunchDarkly dashboard to get AI-powered recommendations.</pre>`;
   }
 
-
-
   // Track the completion and return the result
-  const completion = await aiConfig.tracker.trackOpenAIMetrics(async () => await openaiClient.chat.completions.create({
-      model: aiConfig.model!.name as string,
-      messages: [
-        // Add the system and assistant messages from the AI Config, as well as the user message
-        ...aiConfig.messages!,
-        { role: "user", content: userMessage }
-      ],
-    }))
-
+  try {
+    const completion = await aiConfig.tracker.trackOpenAIMetrics(async () => await openaiClient.chat.completions.create({
+        model: aiConfig.model!.name as string,
+        messages: [
+          // Add the system and assistant messages from the AI Config, as well as the user message
+          ...aiConfig.messages!,
+          { role: "user", content: userMessage }
+        ],
+      }))
 
     return `<pre>${completion.choices[0].message.content}</pre>`;
+  } catch (error) {
+    console.error('Error getting AI completion:', error);
+    throw error;
+  }
 };
