@@ -8,7 +8,7 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
 
   const { productsAvailable } = await getProducts();
 
-  const { aiClient } = await getLaunchDarklyClients();
+  const { ldClient, aiClient } = await getLaunchDarklyClients();
   // Create the user context for this request
   const ctx: LDContext = {
     // The context key should be unique to this end user
@@ -17,6 +17,13 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
     kind: "user",
     name: userName,
   };
+
+  // Example: Evaluate a feature flag to demonstrate SDK usage
+  const showRecommendations = await ldClient.variation('show-recommendations', ctx, false);
+  console.log('Feature flag "show-recommendations" value:', showRecommendations);
+  
+  // Track a custom event to validate SDK connectivity
+  ldClient.track('shopping-assistant-used', ctx, { source: 'cursor', preferences: userPreferences });
 
   // Retrieve the AI Configuration for this context
   const aiConfig = await aiClient.config(
