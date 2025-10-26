@@ -17,7 +17,8 @@ async function main() {
         return await completeShoppingAssistant("Sandy", "I'm looking for a smart watch", ["athletic", "casual", "running"])
       } catch (err) {
         console.error('Error in handler:', err);
-        return h.response({ error: 'Internal server error', details: err.message }).code(500);
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        return h.response({ error: 'Internal server error', details: errorMessage }).code(500);
       }
     },
   });
