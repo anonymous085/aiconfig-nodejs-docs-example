@@ -28,7 +28,7 @@ export const completeShoppingAssistant = async (userName: string, userMessage: s
   // Retrieve the AI Configuration for this context
   const aiConfig = await aiClient.config(
     // Our AI Config key, which can be copied from the sidebar in the LaunchDarkly UI
-    "chat-helper-v1",
+    "chat-helper-v-1",
     // The context for this request
     ctx,
     // A fallback configuration; in our case, we'll skip execution if the AI Config is disabled
